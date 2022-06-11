@@ -9,7 +9,7 @@ That will give you a couple of files:
 
 ### old manual rollback
 
-This is what `circuitikz` did for both ConTeXt and LaTeX before v1.4.0, and still do for ConTeXt.
+This is what `circuitikz` did for both ConTeXt and LaTeX before v1.4.0, and still does for ConTeXt.
 
 - edit the `...git.{tex|sty}` files to set both names and version of the package.
 - for LaTeX:
@@ -35,7 +35,7 @@ This is what `circuitikz` did for both ConTeXt and LaTeX before v1.4.0, and stil
 
 ```
 
-And it's all.
+And that's all.
 
 ## To enable the release in the new rollback system for LaTeX
 

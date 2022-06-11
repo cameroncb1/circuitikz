@@ -1042,7 +1042,7 @@ Now we can add the ``and'' gates. For example, we can add the gates to the right
 \end{circuitikz}
 \end{LTXexample}
 
-You can notice a pair of things here: first of all, the use of the \texttt{anchor=out} in the port, to tell \TikZ{} that we want the node moved so that the \texttt{out} anchor is the reference one. The second one is that we have repeated the absolute shift (the \texttt{++(-1, 0)}) twice. This is a bad practice; it is much better to have the ``free'' parameters of a schematic just stated once, so that we can change them in just one point.
+You may notice a couple of things here: first of all, the use of the \texttt{anchor=out} in the definition of the port, to tell \TikZ{} that we want the node moved so that the \texttt{out} anchor is the reference anchor. The second one is that we have repeated the absolute shift (the \texttt{++(-1, 0)}) twice. This is a bad practice; it is much better to have the ``free'' parameters of a schematic just stated once, so that we can change them in just one point.
 
 You can of course use a macro, like \verb|\newcommand{\andshift}{(-1,0)}| but it is much more elegant to do something like this:
 \begin{LTXexample}[varwidth=true]
@@ -1056,7 +1056,7 @@ You can of course use a macro, like \verb|\newcommand{\andshift}{(-1,0)}| but it
 \end{circuitikz}
 \end{LTXexample}
 
-In this snippet, the coordinate \texttt{(FF.pin 3 -| AND1.out)} is the \TikZ{} way to say ``the point which is horizontally straight from \texttt{FF.pin 3} and vertically form \texttt{AND1.out}''. That way one can change the number \texttt{-1} to move both AND ports nearer or farther away.
+In this snippet, the coordinate \texttt{(FF.pin 3 -| AND1.out)} is the \TikZ{} way to say ``the point which is horizontally aligned with \texttt{FF.pin 3} and vertically aligned with \texttt{AND1.out}''. That way one can change the number \texttt{-1} to move both AND ports nearer or farther away.
 
 Now we can add the not port. Since version~\texttt{1.1.3} you can use a path-style not port, so you can just say: this:
 
@@ -1072,7 +1072,7 @@ Now we can add the not port. Since version~\texttt{1.1.3} you can use a path-sty
 \end{circuitikz}
 \end{LTXexample}
 
-In earlier version, you should have found the center point between the two terminal, position the ``not'' shape and ten connect it, like for example (this code must stay into the \verb|\draw| command):
+In earlier version, you would have had to find the center point between the two terminal, position the ``not'' shape and then connect it, as in this example (this code must stay inside the \verb|\draw| command):
 
 \begin{lstlisting}
     % let's position the NOT in the center
@@ -1082,8 +1082,8 @@ In earlier version, you should have found the center point between the two termi
     (in) -- (NOT.in) (NOT.out) |- (AND2.in 2)
 \end{lstlisting}
 
-Now we have the basic block; we have to use it twice, so one of the possible way to do it is to prepare a command.
-We will change the names of the nodes and the coordinates to be different for any ``call'' of the block (another option is to use a \texttt{pic}; but this is more straightforward).
+Now that we have the basic block, we have to use it twice. One of the possible ways to do this is to prepare a command.
+We will change the names of the nodes and the coordinates to be different for any ``call'' of the block (another option is to use a \texttt{pic}; but the method used here is more straightforward).
 
 \begin{lstlisting}
 \newcommand*{\myblock}[1]{%  Add #1- to the node and coord names
@@ -1105,9 +1105,9 @@ So now we can draw two of our blocks:
     \draw (0,0) \myblock{A};
     \draw (0,-4) \myblock{B};
 \end{lstlisting}
-Part of the anchors and coordinates that we have accessible are marked in red in the diagram at the side.
+Some of the anchors and coordinates that we have accessible are marked in red in the diagram at the side.
 
-Now we have to just connect the relevant parts and add the labels. The names of the inputs are quite easy:
+Now we have just have to connect the relevant parts and add the labels. The names of the inputs are quite easy:
 \begin{lstlisting}
     \draw (A-in) -- ++(-0.5, 0) node[below]{$a_0$};
     \draw (B-in) -- ++(-0.5, 0) node[below]{$a_1$};
@@ -1181,11 +1181,11 @@ The path-style components are used as shown below:
     \draw (0,0) to[#1=#2, options] (2,0);
     \end{circuitikz}
 \end{lstlisting}
-where \verb|#1| is the name of the component, \verb|#2| is an (optional) label, and \verb|options| are optional labels, annotations, style specifier that will be explained in the rest of the manual.
+where \verb|#1| is the name of the component, \verb|#2| is an (optional) label, and \verb|options| are optional labels, annotations, and style specifiers that will be explained in the rest of the manual.
 
 Transistors and some other node-style components can also be placed using the syntax for bipoles. See section~\ref{sec:transasbip}.
 
-Most path-style components can be used as a node-style components; to access them, you add a \texttt{shape} to the main name of component (for example, \texttt{diodeshape}). Such a ``node-shape name'' is specified in the description of each component.
+Most path-style components can be used as node-style components; to access them, you add a \texttt{shape} to the main name of component (for example, \texttt{diodeshape}). Such a ``node-shape name'' is specified in the description of each component.
 
 \subsubsection{Anchors}
 
@@ -1208,7 +1208,7 @@ Normally, path-style components do not need anchors, although they have them jus
         \path (R.\n) \showcoord(\n)<\a:\d>;
     \end{circuitikz}
 \end{center}
-In the case of bipoles, also shortened geographical anchors exists. In the description, it will be shown when a bipole has additional anchors. To use the anchors, just give a name to the bipole element using the syntax \texttt{name=\emph{myname}}.
+In the case of bipoles, shortened geographical anchors also exist.  The description will say  when a bipole has additional anchors. To use the anchors, just give a name to the bipole element using the syntax \texttt{name=\emph{myname}}.
 
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz}
@@ -1217,7 +1217,7 @@ In the case of bipoles, also shortened geographical anchors exists. In the descr
 \end{circuitikz}
 \end{LTXexample}
 
-Alternatively, that you can use the shape form, and then use the \texttt{left} and \texttt{right} anchors to do your connections.
+Alternatively, you can use the shape form, and then use the \texttt{left} and \texttt{right} anchors to make your connections.
 
 \begin{LTXexample}[varwidth=true]
 \begin{circuitikz}
@@ -1238,7 +1238,7 @@ Alternatively, that you can use the shape form, and then use the \texttt{left} a
 \end{circuitikz}
 }
 
-Bipoles have also installed generic border anchors --- that means, anchors that start at an angle. For complexity reason, these are for most of the components simply a generic enclosing rectangle (even for most of the round ones!\footnote{This is needed for the correct label/voltage etc. placement, and it's too much work to change it.}). They interact in a non-trivial way with the \texttt{mirror} and \texttt{invert} keys, so it's best not to use them directly.
+Bipoles also have generic border anchors installed ---  meaning anchors that start at an angle. For complexity reason, for most of the components these are simply a generic enclosing rectangle (even for most of the round ones!\footnote{This is needed for the correct label/voltage etc. placement, and it's too much work to change it.}). They interact in a non-trivial way with the \texttt{mirror} and \texttt{invert} keys, so it's best not to use them directly.
 
 \begin{quote}
     \showbordersfornode{generic}
@@ -1248,7 +1248,7 @@ Bipoles have also installed generic border anchors --- that means, anchors that 
     \showbordersfornode{capacitivesens}
 \end{quote}
 
-You can notice that the border anchors are a bit spaced out (this is useful because those anchors are used to position labels and annotations). You can override this if you need to reach exactly the border (whatever could that mean depends on the component) by using the key \texttt{bipoles/border margin}, which is a number that states how much the enclosing border is stretched out (default value is \texttt{1.1}). For example, setting
+You will notice that the border anchors are a bit spaced out (this is useful because those anchors are used to position labels and annotations). You can override this if you need to just reach the border (what that mean depends on the component) by using the key \texttt{bipoles/border margin}, which is a number that states how much the enclosing border is stretched out (default value is \texttt{1.1}). For example, setting
 \verb|\ctikzset{bipoles/border margin=1}| will make the border anchor coincide with the geographical shape:
 
 \begin{quote}
